@@ -34,6 +34,9 @@ This project sets up Ollama with HTTPS support using Docker and Nginx.
    git clone https://github.com/ChenYCL/docker-ollama-with-https.git
    cd docker-ollama-with-https
    ```
+Or just download directly and extract file.
+ 
+ <img width="424" alt="image" src="https://github.com/user-attachments/assets/37de4c85-6f6c-43c6-8bbb-a32b9253836f">
 
 2. Run the setup script:
    ```bash
