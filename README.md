@@ -9,25 +9,68 @@
 
 This project sets up Ollama with HTTPS support using Docker and Nginx.
 
-## Table of Contents
-
-- [Prerequisites](#prerequisites)
-- [Setup and Usage](#setup-and-usage)
-- [Testing](#testing)
-- [Cleanup](#cleanup)
-- [Notes and Considerations](#notes-and-considerations)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Prerequisites
 
 - Docker
 - Docker Compose
 - OpenSSL (version 1.1.1 or higher)
 - curl
+- OrbStack(optional for MacOs)
 
-## Setup and Usage
+## Using Ollama with OrbStack on macOS
+
+### Prerequisites
+- macOS
+- OrbStack installed on your system
+
+### Steps
+
+1. Install OrbStack
+   Ensure you have OrbStack installed on your macOS. If not, download and install it from the official OrbStack website.
+
+2. Run Ollama Container
+   Open a terminal and execute the following command:
+   ```
+   docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+   ```
+   This command runs the Ollama container in detached mode, maps the necessary volume and port.
+
+3. Pull and Run a Model
+   Replace `<modelname>` with your desired model (e.g., llama2, codellama, etc.):
+   ```
+   docker exec -it ollama ollama run <modelname>
+   ```
+   This command pulls the specified model and runs it within the Ollama container.
+
+4. Test the Setup
+   Use the following curl command to test the Ollama API:
+   ```
+   curl https://ollama.orb.local/v1/chat/completions \
+       -H "Content-Type: application/json" \
+       -d '{
+           "model": "your_model_name",
+           "messages": [
+               {
+                   "role": "system",
+                   "content": "You are a helpful assistant."
+               },
+               {
+                   "role": "user",
+                   "content": "Hello!"
+               }
+           ]
+       }'
+   ```
+   Replace `your_model_name` with the model you pulled in step 3.
+
+### Notes
+- OrbStack automatically manages the HTTPS connection, so you can use `https://ollama.orb.local` without additional setup.
+- Ensure you have sufficient disk space for the Ollama images and models.
+- The Ollama API will be accessible at `https://ollama.orb.local:11434`.
+
+This setup provides a straightforward way to run Ollama with HTTPS support on macOS using OrbStack, simplifying the process compared to traditional Docker setups.
+
+## Manual SetUp
 
 1. Clone this repository:
    ```bash
